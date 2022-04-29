@@ -6,6 +6,11 @@ app.listen(3000, ()=>{
     console.log('App started');
 });
 
+//Basic GET Methods
+app.get('/foo', function(req, res){
+    res.send('Hello world!');
+});
+
 //for files
 app.get('/file.txt', function(req, res){
     res.send('file.txt');
@@ -54,3 +59,30 @@ app.get(/x/, (req, res,)=>{
 app.get(/.*ly$/, (req, res)=>{
     res.send('All endpoint ended with ly');
 });
+
+// multiple callbacks
+app.get('/pipeline', function(req, res, next){
+    console.log('First pprocess');
+    next();
+},
+function(res, res, next){
+    console.log('Second process');
+    //next('route'); to skip all others callbacks
+    next();
+},
+function(req, res){
+    res.send('pipeline ended');
+});
+
+// responses
+
+//redirection
+app.get('/redirect', (req, res) => {
+    res.redirect('/foo');
+});
+
+app.get('/ninja', (req, res) => {
+    res.json({"name": "toby", "familly": "Uchiha"});
+});
+
+// Othe responses res.download(), res.render(), res.sendfile(), res.end(), etc.
