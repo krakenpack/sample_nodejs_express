@@ -33,3 +33,24 @@ app.get('/ab+cd', function(req, res){
 app.get('/ab(cd)?e', function(req, res) {
     res.send('ab(cd)?e');
 });
+
+// all function is used to put a middleware to an endpoint with any HTTP method
+app.all('/private', (req, res, next)=>{
+    console.log('request verifyed');
+    next();
+});
+
+app.get('/private', (req, res)=>{
+    res.send('Your secret is God');
+});
+
+// REGEX ROOTING
+
+// all endpoints containing x
+app.get(/x/, (req, res,)=>{
+    res.send('All containing x');
+});
+
+app.get(/.*ly$/, (req, res)=>{
+    res.send('All endpoint ended with ly');
+});
