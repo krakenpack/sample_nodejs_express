@@ -1,9 +1,26 @@
 const express = require('express');
 const app = express();
+let teams = require('./routes/teams');
 
-// a basic inititalisation of a server
-app.listen(3000, ()=>{
-    console.log('App started');
+// basic get request
+app.get('/foo', function(req, res){
+    res.send("Hello Foo");
+});
+
+// basic post request
+app.post('/foo', function(req, res){
+    console.log(req.body);
+    res.send("Hello Foo");
+});
+
+// basic get request with parameters
+app.get('/foo', function(req, res){
+    res.send("Hello Foo");
+});
+
+//request with a special method
+app['m-search']('/', function(req, res){
+
 });
 
 //Basic GET Methods
@@ -95,3 +112,15 @@ app.route('/players').get(function(req, res){
 }).patch(function(req, res){
     res.json({message: "Player updated"});
 });
+
+
+//Imporint routes as a middleware
+app.use('/teams', teams);
+
+
+app.listen(3000, ()=>{
+    console.log('App started');
+});
+
+
+
