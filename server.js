@@ -86,3 +86,12 @@ app.get('/ninja', (req, res) => {
 });
 
 // Othe responses res.download(), res.render(), res.sendfile(), res.end(), etc.
+
+// Chained
+app.route('/players').get(function(req, res){
+    res.json({message: "Hello from players"});
+}).post(function(req, res){
+    res.json({message: "Player inserted"});
+}).patch(function(req, res){
+    res.json({message: "Player updated"});
+});
